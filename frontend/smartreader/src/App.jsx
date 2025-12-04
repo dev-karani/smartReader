@@ -1,17 +1,11 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
+import FileUpload from "./components/fileUpload";
 
-function App(){
-  const [msg, setMsg] = React.useState("")
-
-  React.useEffect(()=>{
-    fetch("http://localhost:5000/api/example")
-      .then(res =>res.json())
-      .then(data=>setMsg(data.message));
-  }, []);
-
-  return <h1>{msg}</h1>;
+function App() {
+  return (
+    <div style={{ padding: "20px" }}>
+      <FileUpload />
+    </div>
+  );
 }
 
 export default App;
-

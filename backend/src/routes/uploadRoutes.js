@@ -1,14 +1,9 @@
 import { Router } from "express";
-import uploadMiddleware from "../middleware/uploadMiddleware"
-import uploadController from "../controllers/uploadController"
+import uploadMiddleware from "../middleware/uploadMiddleware.js";
+import { uploadFile } from "../controllers/uploadController.js";
 
 const router = Router();
 
-//Post /api/upload
-router.post(
-    "upload",
-    uploadMiddleware.single("file"),  //handlesfile before controller
-    uploadController.handleUpload
-);
+router.post("/", uploadMiddleware, uploadFile);
 
 export default router;
