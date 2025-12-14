@@ -1,4 +1,4 @@
-# echoText
+# smartReader
 echoText is a **text-to-speech tool** that reads any text out loud. Designed for learners, readers, and multitaskers, it supports web, desktop, and can evolve into a browser extension.
 
 ## Features
