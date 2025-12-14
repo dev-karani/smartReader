@@ -1,5 +1,5 @@
 # smartReader
-echoText is a **text-to-speech tool** that reads any text out loud. Designed for learners, readers, and multitaskers, it supports web, desktop, and can evolve into a browser extension.
+smartReader is a **text-to-speech tool** that reads any text out loud. Designed for learners, readers, and multitaskers, it supports web, desktop, and can evolve into a browser extension.
 
 ## Features
 - Convert text to speech in real time
@@ -17,5 +17,5 @@ echoText is a **text-to-speech tool** that reads any text out loud. Designed for
 ## Installation
 1. Clone the repo  
 ```bash
-git clone https://github.com/dev-karani/echoText
+git clone https://github.com/dev-karani/smartReader
 
