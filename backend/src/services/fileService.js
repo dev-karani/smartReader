@@ -1,24 +1,28 @@
-//service/fileservice.js
+// service/fileService.js
 import fs from "fs/promises";
 import path from "path";
-import pdfParse from "pdf-parse";
-import { readFile as readDocx } from "docx-parser";
+import { createRequire } from "module";
 
-//1.detect file type
-function getFileType(filePath){
+// Load CommonJS modules inside ES module
+const require = createRequire(import.meta.url);
+const pdfParse = require("pdf-parse");
+const docxParser = require("docx-parser");
+const readDocx = docxParser.readFile;
+
+// 1. Detect file type
+function getFileType(filePath) {
     const ext = path.extname(filePath).toLowerCase();
-
-    if (ext === '.pdf') return "pdf";
+    if (ext === ".pdf") return "pdf";
     if (ext === ".docx") return "docx";
     if (ext === ".txt") return "txt";
     return "unknown";
 }
 
-//2/extract type
+// 2. Extract text
 export async function extractText(filePath) {
     const fileType = getFileType(filePath);
 
-    switch (fileType){
+    switch (fileType) {
         case "pdf":
             return extractPdf(filePath);
         case "docx":
@@ -26,31 +30,29 @@ export async function extractText(filePath) {
         case "txt":
             return extractTxt(filePath);
         default:
-            throw new Error("Unsupported filetype");
+            throw new Error(`Unsupported file type: ${fileType}`);
     }
 }
 
-//pdf parse
-async function extractPdf(filePath){
+// PDF parse
+async function extractPdf(filePath) {
     const fileBuffer = await fs.readFile(filePath);
     const data = await pdfParse(fileBuffer);
     return data.text;
 }
 
-// Docx parse
-async function extractDocx(filePath){
-    const text = await readDocx(filePath);
-    return text;
+// DOCX parse
+async function extractDocx(filePath) {
+    return await readDocx(filePath);
 }
 
-//txt
-async function extractTxt(filePath){
-    const text = await fs.readFile(filePath, "utf8");
-    return text;
+// TXT parse
+async function extractTxt(filePath) {
+    return await fs.readFile(filePath, "utf8");
 }
 
-//3.clean text
-export function cleanText(text){
+// 3. Clean text
+export function cleanText(text) {
     return text
         .replace(/\r/g, "")
         .replace(/\n{2,}/g, "\n")

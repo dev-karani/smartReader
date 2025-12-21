@@ -1,1 +1,0 @@
-piper --model "C:\Users\dell-user\Documents\Projects\swe\tts reader\en_GB-semaine-medium.onnx"  "Arvis is up and running" 

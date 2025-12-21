@@ -21,14 +21,19 @@ export default function FileUpload() {
         body: formData
       });
 
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({ message: "Upload failed" }));
+        throw new Error(errorData.message || `Server error: ${response.status}`);
+      }
+
       const arrayBuffer = await response.arrayBuffer();
-      const blob = new Blob([new Uint8Array(arrayBuffer)], { type: "audio/mp3" });
+      const blob = new Blob([new Uint8Array(arrayBuffer)], { type: "audio/wav" });
       const url = URL.createObjectURL(blob);
 
       setAudioURL(url);
     } catch (error) {
       console.error(error);
-      alert("Upload failed");
+      alert(`Upload failed: ${error.message}`);
     } finally {
       setLoading(false);
     }
@@ -39,7 +44,7 @@ export default function FileUpload() {
       <h2>Upload File → Convert to Audio</h2>
 
       <form onSubmit={handleUpload}>
-        <input type="file" name="fileInput" accept=".txt,.pdf" />
+        <input type="file" name="fileInput" accept=".txt,.pdf,.docx" />
 
         <button type="submit" disabled={loading}>
           {loading ? "Converting..." : "Upload"}
