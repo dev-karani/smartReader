@@ -1,1 +1,16 @@
 .env
+
+# Large model files (too large for GitHub)
+backend/piper_models/*.onnx
+*.onnx
+
+# Temporary files
+tmp/
+uploads/
+backend/tmp/
+backend/uploads/
+
+# Node modules
+node_modules/
+backend/node_modules/
+frontend/smartreader/node_modules/
